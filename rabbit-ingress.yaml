@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rabbitmq-management-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # Removed the SSL-related annotations
+spec:
+  rules:
+    - host: rabbitmq-management.home.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rabbitmq-management
+                port:
+                  number: 15672
